@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { ReservationRepo } from './repos/reservation.repo';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class ReservationService {
-  create(createReservationDto: CreateReservationDto) {
-    return 'This action adds a new reservation';
+  constructor(protected readonly _reservationRepo: ReservationRepo) {}
+  async create(createReservationDto: CreateReservationDto) {
+    return await this._reservationRepo.create(createReservationDto);
   }
 
-  findAll() {
-    return `This action returns all reservation`;
+  async findAll() {
+    return await this._reservationRepo.find({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} reservation`;
+  async findOne(id: string) {
+    return await this._reservationRepo.findOne({ _id: new Types.ObjectId(id) });
   }
 
-  update(id: number, updateReservationDto: UpdateReservationDto) {
-    return `This action updates a #${id} reservation`;
+  async update(id: string, updateReservationDto: UpdateReservationDto) {
+    return await this._reservationRepo.findOneAndUpdate(
+      {
+        _id: new Types.ObjectId(id) 
+      },
+      updateReservationDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} reservation`;
+ async  remove(id: string) {
+    return await this._reservationRepo.findOneAndDelete({_id: new Types.ObjectId(id),}
+    )
   }
 }

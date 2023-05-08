@@ -1,0 +1,14 @@
+services:
+  reservations:
+    build: 
+     context: .
+     dockerfile: ./apps/reservation/DockerFile
+     target: development
+    command : npm run start:dev
+    ports:
+      - '3000:3000'
+    volumes:
+     - .:/user/src/app
+  mongo:
+    image: mongo
+     
