@@ -8,6 +8,8 @@ import { UserRepo } from './repos/user.repo';
 @Module({
   imports:[  DataBaseModule,DataBaseModule.forFeature([{name:'users' ,schema:UserSchema}])],
   controllers: [UserController],
-  providers: [UserService  ,UserRepo]
+  providers: [UserService  ,UserRepo],
+  exports:[UserService]
+
 })
 export class UserModule {}

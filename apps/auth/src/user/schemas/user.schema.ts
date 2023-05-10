@@ -1,6 +1,6 @@
 import { AbstractDocument } from '@app/common';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { type } from 'os';
+
 
 @Schema({ timestamps: true })
 export class User {

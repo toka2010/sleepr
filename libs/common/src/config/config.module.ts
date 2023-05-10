@@ -8,7 +8,7 @@ import * as Joi from 'joi';
   imports: [
     NestConfigModule.forRoot({
       validationSchema: Joi.object({
-        // MONGODB_URI: Joi.string().required(),
+        MONGODB_URI: Joi.string().required(),
       }),
     }),
   ],
