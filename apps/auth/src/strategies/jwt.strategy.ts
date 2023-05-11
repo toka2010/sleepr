@@ -5,6 +5,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { UserService } from '../user/user.service';
 import { Request } from 'express';
 import { ITokenPayload } from '../interfaces/token-payload.interface';
+import { log } from 'console';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -12,17 +13,28 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private readonly _configService: ConfigService,
     private readonly _userService: UserService,
   ) {
+    console.log("lalallalalal");
+    
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        (request: Request) => request?.cookies?.Authentication,
+        (request: any) => {
+        console.log("🚀 ~ file: jwt.strategy.ts:27 ~ JwtStrategy ~ classJwtStrategyextendsPassportStrategy ~ request3:", request.cookies)
+          
+          console.log("🚀 ~ file: jwt.strategy.ts:25 ~ JwtStrategy ~ classJwtStrategyextendsPassportStrategy ~ request2:", request?.Authentication);
+          return request?.cookies?.Authentication || request?.Authentication;
+        },
+          
       ]),
-      secretOrKey:_configService.get('JWT_SECRET')
-      
+      secretOrKey: _configService.get('JWT_SECRET'),
     });
   }
 
-  async  validate ({userId}:ITokenPayload){
-    return await   this._userService.findUserById(userId);
-    
+  async validate({ userId }: ITokenPayload) {
+    console.log(
+      '🚀 ~ file: jwt.strategy.ts:25 ~ JwtStrategy ~ validate ~ userId:',
+      userId,
+    );
+
+    return await this._userService.findUserById(userId);
   }
 }

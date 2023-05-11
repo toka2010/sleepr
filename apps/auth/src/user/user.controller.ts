@@ -17,5 +17,7 @@ export class UserController {
   @UseGuards(JwtGuard)
   async findUser(@currentUser() user: UserDocument) {
     return  user;
+    
   }
+  
 }
