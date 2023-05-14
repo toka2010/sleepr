@@ -5,7 +5,7 @@ import { DataBaseModule, LoggerModule } from '@app/common';
 import { ReservationRepo } from './repos/reservation.repo';
 import { ReservationSchema } from './schemas/reservation.entity';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { AUTH_SERVIE } from '@app/common/constants/services';
+import { AUTH_SERVIE, PAYMENTS_SERVICE } from '@app/common/constants/services';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 
@@ -37,6 +37,17 @@ import * as Joi from 'joi';
           options: {
             host:'auth',
             port: 3003
+          },
+        }),
+        inject:[ConfigService]
+      },
+      {
+        name: PAYMENTS_SERVICE,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            host:PAYMENTS_SERVICE,
+            port:  3005
           },
         }),
         inject:[ConfigService]

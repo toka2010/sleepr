@@ -11,6 +11,10 @@ export class Reservation {
 
   @Prop({ type: String })
   userId: string;
+
+
+  @Prop({ type: String })
+  paymentId: string;
 }
 
 export const ReservationSchema = SchemaFactory.createForClass(Reservation);

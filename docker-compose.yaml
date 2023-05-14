@@ -34,7 +34,7 @@ services:
     volumes:
      - .:/user/src/app
     env_file:
-      - ./apps/auth/.env
+      - ./apps/payments/.env
   mongo:
     image: mongo
      

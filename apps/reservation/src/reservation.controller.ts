@@ -18,7 +18,13 @@ export class ReservationController {
   constructor(private readonly reservationService: ReservationService) {}
 
   @Post()
-  async create(@Body() createReservationDto: CreateReservationDto) {
+  @UseGuards(JwtAuthGuard)
+  async create(@Body() createReservationDto: CreateReservationDto , @currentUser() user: UserDto)  {
+    console.log(
+      '🚀 ~ file: reservation.controller.ts:21 ~ ReservationController ~ findAll ~ user:',
+      user,createReservationDto
+    );
+
     return await this.reservationService.create(createReservationDto);
   }
 
