@@ -35,6 +35,18 @@ services:
      - .:/user/src/app
     env_file:
       - ./apps/payments/.env
+  notifications:
+    build: 
+      context: .
+      dockerfile: ./apps/notifications/DockerFile
+      target: development
+    command : npm run start:dev  notifications
+    ports:
+      - '3006:3006'
+    volumes:
+     - .:/user/src/app
+    env_file:
+      - ./apps/notifications/.env
   mongo:
     image: mongo
      

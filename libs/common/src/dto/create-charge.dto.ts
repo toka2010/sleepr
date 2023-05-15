@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 import { CardDto } from './card.dto';
-import { IsNotEmptyObject, IsNumber, ValidateNested } from 'class-validator';
+import { IsEmail, IsNotEmptyObject, IsNumber, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class CreateChargeDto {
@@ -11,4 +11,5 @@ export class CreateChargeDto {
 
   @IsNumber()
   amount: number;
+
 }

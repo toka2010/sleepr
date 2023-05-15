@@ -25,7 +25,7 @@ export class ReservationController {
       user,createReservationDto
     );
 
-    return await this.reservationService.create(createReservationDto);
+    return await this.reservationService.create(createReservationDto,user);
   }
 
   @Get()

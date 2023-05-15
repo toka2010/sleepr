@@ -16,11 +16,8 @@ export class CreateReservationDto {
   @IsString()
   name: string;
 
-  @IsString()
-  userId: string;
-
   @IsNotEmptyObject()
   @Type(() => CreateChargeDto)
   @ValidateNested()
- charge:CreateChargeDto;
+  charge: CreateChargeDto;
 }
