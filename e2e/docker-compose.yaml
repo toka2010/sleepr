@@ -1,0 +1,64 @@
+services:
+  e2e20:
+    build: 
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./specs:/usr/src/app/specs
+    depends_on:
+      - reservations
+      - auth
+      - payments
+      - notifications
+      - mongo
+  reservations:
+    build: 
+     context: .
+     dockerfile: ../apps/reservation/DockerFile
+     target: development
+    command : npm run start:dev  reservation
+    ports:
+      - '4000:4000'
+    volumes:
+     - .:/user/src/app
+    env_file:
+      - ../apps/reservation/.env
+  auth:
+    build: 
+     context: .
+     dockerfile: ./apps/auth/DockerFile
+     target: development
+    command : npm run start:dev  auth
+    ports:
+       - '4001:4001'
+    volumes:
+     - .:/user/src/app
+    env_file:
+      - ../apps/auth/.env
+  payments:
+    build: 
+      context: .
+      dockerfile: ./apps/payments/DockerFile
+      target: development
+    command : npm run start:dev  payments
+    ports:
+      - '4004:4004'
+    volumes:
+     - .:/user/src/app
+    env_file:
+      - ../apps/payments/.env
+  notifications:
+    build: 
+      context: .
+      dockerfile: ./apps/notifications/DockerFile
+      target: development
+    command : npm run start:dev  notifications
+    ports:
+      - '4006:4006'
+    volumes:
+     - .:/user/src/app
+    env_file:
+      - ../apps/notifications/.env
+  mongo:
+    image: mongo
+     
+      

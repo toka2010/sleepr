@@ -22,3 +22,15 @@ COPY package.json ./
 RUN npm install --prod
 
 RUN npm install --only=prod
+
+FROM node:18.14.0-alpine As test
+
+WORKDIR   /user/src/app
+
+# COPY package*.json ./
+
+# RUN npm install --silent
+
+COPY . .
+
+# RUN npm run build
