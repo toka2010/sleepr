@@ -5,8 +5,7 @@ import {
 } from '@nestjs/common';
 import { UserRepo } from './repos/user.repo';
 import { CreateUserDto } from './dtos/create-user.dto';
-import * as bcrypt from 'bcrypt';
-import { log } from 'console';
+const bcrypt = require('bcryptjs')
 import { Types } from 'mongoose';
 
 @Injectable()
@@ -14,10 +13,12 @@ export class UserService {
   constructor(private readonly _userRepo: UserRepo) {}
 
   async create(body: CreateUserDto) {
+    const ll=await bcrypt.hash(body.password, 10);
+    body.password=await bcrypt.hash(body.password, 10);
+    console.log("🚀 ~ file: user.service.ts:18 ~ UserService ~ create ~  body.password:",  body.password)
     await this.validateBeforeCreate(body);
     const user = await this._userRepo.create({
-      ...body,
-      password: await bcrypt.hash(body.password, 10),
+      ...body
     });
     return user;
   }
@@ -30,8 +31,11 @@ export class UserService {
   }
 
   async verify(email: string, password: string) {
+    console.log("🚀 ~ file: user.service.ts:34 ~ UserService ~ verify ~ password:", password)
     const user = await this._userRepo.findOne({ email: email });
-    const isMatched = await bcrypt.compare(password, user.password);
+    console.log("🚀 ~ file: user.service.ts:35 ~ UserService ~ verify ~ user:", user)
+    const isMatched = bcrypt.compareSync(password, user.password);
+    console.log("🚀 ~ file: user.service.ts:37 ~ UserService ~ verify ~ isMatched:", isMatched)
     if (!isMatched) {
       throw new UnauthorizedException('invalid data ');
     }
