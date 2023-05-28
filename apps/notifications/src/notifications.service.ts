@@ -18,7 +18,7 @@ export class NotificationsService {
   async notifyEmail({ email ,amount }: NotifyEmailDto) {
     console.log(
       '🚀 ~ file: notifications.service.ts:8 ~ NotificationsService ~ notifyEmail ~ email:',
-      email,
+      email,this._configService.get('GOOGLE_USER'),this._configService.get('GOOGLE_CLIENTID'),
     );
 
     await this.transporter.sendMail({
@@ -27,5 +27,7 @@ export class NotificationsService {
       text:`your payments of ${amount} $, are completed successfully`,
       from:this._configService.get('GOOGLE_USER'),
     });
+    console.log('%cnotifications.service.ts line:30 we got it ', 'color: #007acc;', "we got it" );
   }
 }
+ 

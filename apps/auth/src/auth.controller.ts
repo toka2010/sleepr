@@ -16,10 +16,11 @@ export class AuthController {
   async login(
     @Request() req,
     @currentUser() user: UserDocument,
-    @Res({ passthrough: true }) res: Response,
+    @Res({ passthrough: true }) res: Response, 
   ) {
-    await this.authService.login(user, res);
-    res.send(user);
+    const jwt=await this.authService.login(user, res);
+    console.log("🚀 ~ file: auth.controller.ts:22 ~ AuthController ~ jwt:", jwt)
+    res.send(jwt);
   }
 
   @UseGuards(JwtGuard)
@@ -27,6 +28,10 @@ export class AuthController {
   async authenticate(@Payload() data: any) {
     
     return  data.user;
-    
+      
   }
+  @Get()
+  async sayHello(){
+    return 'hello';
+  } 
 }

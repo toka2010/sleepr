@@ -18,8 +18,8 @@ export class ReservationService {
     { email, _id: userId }: UserDto,
   ) {
     console.log(
-      '🚀 ~ file: reservation.service.ts:17 ~ ReservationService ~ create ~ email:',
-      email,
+      '🚀 ~ file: reservation.service.ts:17 ~ ReservationService ~ create ~ email:userId',
+      email ,userId
     );
     return this._clientProxy
       .send('create-charge', { ...createReservationDto.charge, email })

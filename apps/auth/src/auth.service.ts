@@ -34,6 +34,8 @@ export class AuthService {
       httpOnly: true,
       expires,
     });
+
+    return token;
   }
   async  validate(){
     console.log("sjkxjfsuyfxvsiuv");

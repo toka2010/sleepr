@@ -11,6 +11,8 @@ services:
      - .:/user/src/app
     env_file:
       - ./apps/reservation/.env
+    networks:
+      - nestjs-microservices
   auth:
     build: 
       context: .
@@ -23,6 +25,9 @@ services:
      - .:/user/src/app
     env_file:
       - ./apps/auth/.env
+    networks:
+      - nestjs-microservices
+
   payments:
     build: 
       context: .
@@ -35,6 +40,9 @@ services:
      - .:/user/src/app
     env_file:
       - ./apps/payments/.env
+    networks:
+      - nestjs-microservices
+
   notifications:
     build: 
       context: .
@@ -47,6 +55,15 @@ services:
      - .:/user/src/app
     env_file:
       - ./apps/notifications/.env
+    networks:
+      - nestjs-microservices
+  
   mongo:
     image: mongo
+    networks:
+      - nestjs-microservices
      
+networks:
+  nestjs-microservices:
+    name: nestjs-microservices
+    external: true

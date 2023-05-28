@@ -29,7 +29,7 @@ export class ReservationController {
   }
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   async findAll(@currentUser() user: UserDto) {
     console.log(
       '🚀 ~ file: reservation.controller.ts:21 ~ ReservationController ~ findAll ~ user:',

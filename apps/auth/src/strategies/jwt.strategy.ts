@@ -21,7 +21,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         console.log("🚀 ~ file: jwt.strategy.ts:27 ~ JwtStrategy ~ classJwtStrategyextendsPassportStrategy ~ request3:", request.cookies)
           
           console.log("🚀 ~ file: jwt.strategy.ts:25 ~ JwtStrategy ~ classJwtStrategyextendsPassportStrategy ~ request2:", request?.Authentication);
-          return request?.cookies?.Authentication || request?.Authentication;
+          console.log("🚀 ~ file: jwt.strategy.ts:26 ~ JwtStrategy ~ classJwtStrategyextendsPassportStrategy ~ request?.headers.Authentication:nanananna", request?.headers)
+
+          return request?.cookies?.Authentication || request?.Authentication  || request?.headers.Authentication;
         },
           
       ]),
