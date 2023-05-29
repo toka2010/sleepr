@@ -17,9 +17,7 @@ export class UserService {
     body.password=await bcrypt.hash(body.password, 10);
     console.log("🚀 ~ file: user.service.ts:18 ~ UserService ~ create ~  body.password:",  body.password)
     await this.validateBeforeCreate(body);
-    const user = await this._userRepo.create({
-      ...body
-    });
+    const user = await this._userRepo.create(body);
     return user;
   }
 

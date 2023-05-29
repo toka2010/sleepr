@@ -52,6 +52,7 @@ export class ReservationService {
   }
 
   async remove(id: string) {
+    console.log('%creservation.service.ts line:55 "delete......"', 'color: #007acc;', "delete......");
     return await this._reservationRepo.findOneAndDelete({
       _id: new Types.ObjectId(id),
     });
