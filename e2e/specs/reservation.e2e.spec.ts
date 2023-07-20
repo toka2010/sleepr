@@ -1,10 +1,10 @@
 describe("Reservation", () => {
-  let jwt ="";
+  let jwt = "";
   beforeAll(async () => {
-    const user = { email: "toka.fawy@gmail.com", password: "123456" };
+    const user = { email: "toka.fawy2@gmail.com", password: "123456" };
     await fetch("http://sleepr-auth-1:3001/user", {
       method: "POST",
-      body: JSON.stringify({ name: "lala", ...user }),
+      body: JSON.stringify({ name: "lala", ...user ,roles:'Admin' }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -26,9 +26,9 @@ describe("Reservation", () => {
 
   test("create", async () => {
     console.log(
-        "🚀 ~ file: reservation.e2e.spec.ts:15 ~ beforeAll ~ jwt:",
-        jwt
-      );
+      "🚀 ~ file: reservation.e2e.spec.ts:15 ~ beforeAll ~ jwt:",
+      jwt
+    );
     const response = await fetch(
       "http://sleepr-reservations-1:3000/reservations",
       {
@@ -50,12 +50,35 @@ describe("Reservation", () => {
         }),
       }
     );
-    console.log("🚀 ~ file: reservation.e2e.spec.ts:53 ~ test ~ response:", await response ,response.ok)
-    const reservation2=  await response.json();
-    console.log("🚀 ~ file: reservation.e2e.spec.ts:51 ~ describe ~ reservation:", reservation2);
-    expect(response.ok).toBe(true)
+    console.log(
+      "🚀 ~ file: reservation.e2e.spec.ts:53 ~ test ~ response:",
+      await response,
+      response.ok
+    );
+    const reservation2 = await response.json();
+    console.log(
+      "🚀 ~ file: reservation.e2e.spec.ts:51 ~ describe ~ reservation:",
+      reservation2
+    );
+    expect(response.ok).toBe(true);
 
-    const responseGet =  await fetch('http://sleepr-reservations-1:3000/reservations',{ headers: { "Content-Type": "application/json", authentication: jwt },});
-    console.log("🚀 ~ file: reservation.e2e.spec.ts:59 ~ test ~ responseGet:",await  responseGet.json())
-});
+    const responseGet = await fetch(
+      "http://sleepr-reservations-1:3000/reservations",
+      { headers: { "Content-Type": "application/json", authentication: jwt } }
+    );
+    console.log(
+      "🚀 ~ file: reservation.e2e.spec.ts:59 ~ test ~ responseGet:",
+      await responseGet.json()
+    );
+  });
+
+  test("delete reservation", async () => {
+   const response= await fetch("http://sleepr-reservations-1:3000/reservations/6473196fd9e660aa857e3ed7",{
+    method:'Delete',
+    headers: { "Content-Type": "application/json", authentication: jwt },
+    
+   })
+   console.log("🚀 ~ file: reservation.e2e.spec.ts:81 ~ test ~ response:", await response.json())
+expect(response.ok).toBeTruthy()
+  });
 });
